@@ -1,0 +1,314 @@
+:root {
+  --bg-dark: #13151a;
+  --bg-card: #1d2028;
+  --bg-panel: #272b36;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --accent-blue: #0ea5e9;
+  --accent-red: #ef4444;
+  --accent-green: #22c55e;
+  --temp-color: #ff6f61;
+  --hum-color: #38bdf8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+/* Top Navigation Bar */
+.topbar {
+  background-color: var(--bg-card);
+  border-bottom: 1px solid #2e3340;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--accent-red);
+  box-shadow: 0 0 8px var(--accent-red);
+  transition: 0.3s;
+}
+
+.status-dot.connected {
+  background-color: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+select, input[type="text"] {
+  background-color: var(--bg-panel);
+  color: var(--text-main);
+  border: 1px solid #3b4252;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: var(--accent-blue);
+}
+
+.sim-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Buttons */
+.btn {
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary { background-color: var(--accent-blue); }
+.btn-secondary { background-color: #3b4252; }
+.btn-danger { background-color: var(--accent-red); }
+.full-width { width: 100%; }
+
+/* Grid Layout */
+.dashboard-grid {
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid #2b303c;
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.center-card {
+  align-items: center;
+  text-align: center;
+}
+
+.span-full {
+  grid-column: 1 / -1;
+}
+
+.card-header {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+/* Sensors */
+.metric-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.temp-color { color: var(--temp-color); }
+.hum-color { color: var(--hum-color); }
+
+.progress-track {
+  width: 100%;
+  height: 12px;
+  background-color: var(--bg-panel);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.temp-bg { background-color: var(--temp-color); }
+.hum-bg { background-color: var(--hum-color); }
+
+.card-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* LED Indicator */
+.led-bulb {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #3f1515;
+  border: 3px solid #5c2222;
+  margin: 0.5rem 0 1.25rem;
+  transition: all 0.25s ease;
+}
+
+.led-bulb.on {
+  background-color: #22c55e;
+  border-color: #86efac;
+  box-shadow: 0 0 25px #22c55e, inset 0 0 10px #ffffff;
+}
+
+/* 16x2 Character LCD */
+.lcd-bezel {
+  background-color: #111317;
+  padding: 8px;
+  border-radius: 6px;
+  border: 2px solid #333946;
+  margin-bottom: 0.85rem;
+}
+
+.lcd-screen {
+  background-color: #7ab81d;
+  color: #152404;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  padding: 8px 10px;
+  border-radius: 3px;
+  white-space: pre;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.lcd-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Rotary Encoder */
+.encoder-dial {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #2a2f3b 60%, #181b22 100%);
+  border: 4px solid #3b4252;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #81c784;
+}
+
+.encoder-needle {
+  position: absolute;
+  top: 6px;
+  width: 4px;
+  height: 14px;
+  background-color: var(--accent-blue);
+  border-radius: 2px;
+  transform-origin: 50% 45px;
+  transition: transform 0.15s ease-out;
+}
+
+/* Motor Control */
+.motor-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.rotor-icon {
+  font-size: 1.6rem;
+  display: inline-block;
+  color: var(--accent-blue);
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-bottom: 1.25rem;
+  accent-color: var(--accent-blue);
+  cursor: pointer;
+}
+
+.motor-actions {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.5rem;
+}
+
+/* Serial Terminal */
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-small {
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  border: 1px solid #3b4252;
+  padding: 2px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.terminal-box {
+  background-color: #0d0f12;
+  border: 1px solid #262a34;
+  border-radius: 6px;
+  height: 140px;
+  overflow-y: auto;
+  padding: 0.75rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  color: #a3e635;
+}
+
+.log-tx { color: #38bdf8; }
+.log-rx { color: #a3e635; }
+.log-sys { color: #94a3b8; }

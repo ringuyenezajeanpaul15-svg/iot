@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Embedded Hardware Telemetry & Control Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="status-dot" id="connDot"></span>
+      <h1>Hardware Control & Telemetry</h1>
+    </div>
+
+    <div class="controls">
+      <select id="baudRate" title="Baud Rate">
+        <option value="9600" selected>9600 Baud</option>
+        <option value="115200">115200 Baud</option>
+      </select>
+      <button id="btnConnect" class="btn btn-primary">Connect Serial Port</button>
+      <label class="sim-toggle">
+        <input type="checkbox" id="chkSimMode" checked />
+        <span>Simulation Mode</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="dashboard-grid">
+    <!-- 1. TEMPERATURE -->
+    <section class="card">
+      <div class="card-header">TEMPERATURE</div>
+      <div class="metric-value temp-color" id="tempVal">24.5 °C</div>
+      <div class="progress-track">
+        <div class="progress-fill temp-bg" id="tempBar" style="width: 24.5%;"></div>
+      </div>
+      <div class="card-sub">Range: 0°C – 100°C</div>
+    </section>
+
+    <!-- 2. HUMIDITY -->
+    <section class="card">
+      <div class="card-header">HUMIDITY</div>
+      <div class="metric-value hum-color" id="humVal">52.0 %</div>
+      <div class="progress-track">
+        <div class="progress-fill hum-bg" id="humBar" style="width: 52%;"></div>
+      </div>
+      <div class="card-sub">Relative Humidity (RH)</div>
+    </section>
+
+    <!-- 3. STATUS LED -->
+    <section class="card center-card">
+      <div class="card-header">GPIO STATUS LED</div>
+      <div class="led-bulb" id="ledIndicator"></div>
+      <button id="btnToggleLed" class="btn btn-secondary">TURN LED ON</button>
+    </section>
+
+    <!-- 4. 16x2 CHARACTER LCD -->
+    <section class="card">
+      <div class="card-header">16x2 CHARACTER LCD</div>
+      <div class="lcd-bezel">
+        <div class="lcd-screen" id="lcdPreview">
+          <div id="lcdLine1Out">SYSTEM READY    </div>
+          <div id="lcdLine2Out">TEMP: 24.5 C    </div>
+        </div>
+      </div>
+      <div class="lcd-inputs">
+        <input type="text" id="txtLcd1" maxlength="16" value="SYSTEM READY" placeholder="Line 1 (max 16 chars)" />
+        <input type="text" id="txtLcd2" maxlength="16" value="TEMP: 24.5 C" placeholder="Line 2 (max 16 chars)" />
+        <button id="btnSendLcd" class="btn btn-primary full-width">Send to LCD</button>
+      </div>
+    </section>
+
+    <!-- 5. ROTARY ENCODER -->
+    <section class="card center-card">
+      <div class="card-header">ROTARY ENCODER</div>
+      <div class="encoder-dial" id="encoderDial">
+        <div class="encoder-needle" id="encoderNeedle"></div>
+        <span id="encVal">0</span>
+      </div>
+      <button id="btnResetEnc" class="btn btn-secondary">Reset Zero</button>
+    </section>
+
+    <!-- 6. MOTOR CONTROL -->
+    <section class="card">
+      <div class="card-header">DC / STEPPER MOTOR</div>
+      <div class="motor-status">
+        <span id="motorLabel">Speed: 0% (CW)</span>
+        <span class="rotor-icon" id="rotorIcon">⚙</span>
+      </div>
+      <input type="range" id="rngMotorSpeed" min="0" max="100" value="0" />
+      <div class="motor-actions">
+        <button id="btnMotorDir" class="btn btn-secondary">Direction: CW ↻</button>
+        <button id="btnMotorStop" class="btn btn-danger">STOP</button>
+      </div>
+    </section>
+
+    <!-- 7. SERIAL MONITOR LOG -->
+    <section class="card span-full">
+      <div class="card-header terminal-header">
+        <span>SERIAL MONITOR (RX / TX)</span>
+        <button id="btnClearLog" class="btn-small">Clear</button>
+      </div>
+      <div class="terminal-box" id="serialLog"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
